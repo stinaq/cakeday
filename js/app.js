@@ -1,6 +1,5 @@
 $(function(){
 
-	var user = null;
 	var $result = $('#result');
 	var $form = $('#cakedayForm');
 	var userUrl = null;
@@ -33,17 +32,18 @@ $(function(){
 	}
 
 	var getUser = function(){
-		user = $("#userName").val();
+		return $("#userName").val();
 	}
 
 	var createUserUrl = function(){
+		var userName = getUser();
 		userUrl = "http://www.reddit.com/user/" + user + 
 			"/about.json?jsonp=?";
 	}
 
 	$($form).on("submit", function(event) {
 		event.preventDefault();
-		getUser();
+		
 		createUserUrl();
 
     	getDaysLeft();
