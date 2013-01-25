@@ -35,18 +35,28 @@ $(function(){
 		return $("#userName").val();
 	}
 
-	var createUserUrl = function(){
-		var userName = getUser();
-		userUrl = "http://www.reddit.com/user/" + user + 
+	var createUserUrl = function(userName){
+
+		userUrl = "http://www.reddit.com/user/" + userName + 
 			"/about.json?jsonp=?";
+	}
+
+	var noInput = function(){
+		$($result).empty();
+
 	}
 
 	$($form).on("submit", function(event) {
 		event.preventDefault();
-		
-		createUserUrl();
+		var userName = getUser();
+		if(userName) {
+			createUserUrl(userName);
+    		getDaysLeft();
+		} else {
+			noInput();
+		}
 
-    	getDaysLeft();
+		
   	});
 
 
