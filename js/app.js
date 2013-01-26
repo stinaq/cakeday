@@ -23,12 +23,34 @@ $(function(){
 				displayDaysLeft();
 				
 
-			}).error(function(){console.log("GAH")});
+			});
 	}
 
 	var displayDaysLeft = function() {
 		$($result).empty();
 		$($result).append(daysLeft);
+		displayMessage();
+	}
+
+	var displayMessage = function() {
+		var message = null;
+		if (daysLeft === 0) {
+			message = 'Go post something funny now, and reap the benefits';
+		} else if (daysLeft === 1) {
+			message = "That's like, tomorrow. Better go find a cat to take pictures of";
+		} else if (daysLeft < 5) {
+			message = "Soon. Very soon";
+		} else if (daysLeft < 15) {
+			message = "It's creeping closer. No long now until you have spent a whole year on reddit";
+		} else if (daysLeft > 363) {
+			message = "Oh, man.. That has got to hurt. It was, like, yesterday";
+		} else if (daysLeft < 180) {
+			message = "Less than half a year, now";
+		} else {
+			message = "At least half a year left";
+		}
+
+		$($result).append("<br />" + message);
 	}
 
 	var getUser = function(){
