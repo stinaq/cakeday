@@ -1,6 +1,7 @@
 $(function(){
 
 	var $result = $('#result');
+	var $message = $('#message');
 	var $form = $('#cakedayForm');
 	var userUrl = null;
 	var daysLeft = null;
@@ -28,7 +29,7 @@ $(function(){
 
 	var displayDaysLeft = function() {
 		$($result).empty();
-		$($result).append(daysLeft);
+		$($result).text(daysLeft);
 		displayMessage();
 	}
 
@@ -50,7 +51,7 @@ $(function(){
 			message = "At least half a year left";
 		}
 
-		$($result).append("<br />" + message);
+		$($message).text(message);
 	}
 
 	var getUser = function(){
