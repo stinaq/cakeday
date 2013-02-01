@@ -3,6 +3,7 @@ $(function(){
 	var $result = $('#result');
 	var $message = $('#message');
 	var $form = $('#cakedayForm');
+	var $cakedayDate = $('#cakedayDate');
 	var userUrl = null;
 	var daysLeft = null;
 
@@ -21,10 +22,14 @@ $(function(){
 
 				daysLeft = nextCakeday.diff(moment(), 'days');
 				console.log(daysLeft);
-				displayDaysLeft();
-				
 
+				displayDaysLeft();
+				displayNextCakeday(nextCakeday);
 			});
+	}
+
+	var displayNextCakeday = function(nextCakeday) {
+		$($cakedayDate).text(nextCakeday.format("MMMM Do YYYY"));
 	}
 
 	var displayDaysLeft = function() {
@@ -45,10 +50,8 @@ $(function(){
 			message = "It's creeping closer. No long now until you have spent a whole year on reddit";
 		} else if (daysLeft > 363) {
 			message = "Oh, man.. That has got to hurt. It was, like, yesterday";
-		} else if (daysLeft < 180) {
-			message = "Less than half a year, now";
 		} else {
-			message = "At least half a year left";
+			message = " ";
 		}
 
 		$($message).text(message);
