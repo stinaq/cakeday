@@ -68,7 +68,15 @@ input[type="text"]:focus{
 
 #message{
   color: white;
-    font-family: "Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
+  font-family: "Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
   font-weight: 100;
   font-size: 20px;
+}
+
+
+#cakedayDate{
+    color: white;
+    font-family: "Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
+    font-weight: 100;
+    font-size: 20px;
 }

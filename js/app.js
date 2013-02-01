@@ -54,7 +54,9 @@ $(function(){
 			message = " ";
 		}
 
-		$($message).text(message);
+		$($message).text("days left");
+		$($message).append("<br />");
+		$($message).append(message);
 	}
 
 	var getUser = function(){
