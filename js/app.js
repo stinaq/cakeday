@@ -1,91 +1,94 @@
 $(function(){
 
-	var $result = $('#result');
-	var $message = $('#message');
-	var $form = $('#cakedayForm');
-	var $cakedayDate = $('#cakedayDate');
-	var userUrl = null;
-	var daysLeft = null;
+  "use strict";
 
-	var getDaysLeft = function() {
-		$.getJSON(userUrl,
-			function(data){
+  var $result = $('#result');
+  var $message = $('#message');
+  var $form = $('#cakedayForm');
+  var $cakedayDate = $('#cakedayDate');
+  var $response = $('#response');
 
-				var createdDate = moment.unix(data.data.created);
+  var gotInput = function(userName) {
+    var userUrl = createUserUrl(userName);
 
-				var currentYear = moment().format('YYYY');
-				var nextCakeday = createdDate.year(currentYear);
+    $.ajax({
+      url: userUrl,
+      dataType: "jsonp",
+      timeout: 1000,
+      success: function(data){
 
-				if(nextCakeday < moment()){
-					nextCakeday = nextCakeday.add('years', 1)
-				}
+        var createdDate = moment.unix(data.data.created);
 
-				daysLeft = nextCakeday.diff(moment(), 'days');
-				console.log(daysLeft);
+        var currentYear = moment().format('YYYY');
+        var nextCakeday = createdDate.year(currentYear);
 
-				displayDaysLeft();
-				displayNextCakeday(nextCakeday);
-			});
-	}
+        if(nextCakeday < moment()){
+          nextCakeday = nextCakeday.add('years', 1)
+        }
 
-	var displayNextCakeday = function(nextCakeday) {
-		$($cakedayDate).text(nextCakeday.format("MMMM Do YYYY"));
-	}
+        var daysLeft = nextCakeday.diff(moment(), 'days');
+        console.log(daysLeft);
 
-	var displayDaysLeft = function() {
-		$($result).empty();
-		$($result).text(daysLeft);
-		displayMessage();
-	}
+        displayNextCakeday(nextCakeday);
+        displayDaysLeft(daysLeft);
+        displayMessage(daysLeft);
+      },
+      error: function(){
+        $($message).text("no user");
+      }});
+  };
 
-	var displayMessage = function() {
-		var message = null;
-		if (daysLeft === 0) {
-			message = 'Go post something funny now, and reap the benefits';
-		} else if (daysLeft === 1) {
-			message = "That's like, tomorrow. Better go find a cat to take pictures of";
-		} else if (daysLeft < 5) {
-			message = "Soon. Very soon";
-		} else if (daysLeft < 15) {
-			message = "It's creeping closer. No long now until you have spent a whole year on reddit";
-		} else if (daysLeft > 363) {
-			message = "Oh, man.. That has got to hurt. It was, like, yesterday";
-		} else {
-			message = " ";
-		}
+  var displayNextCakeday = function(nextCakeday) {
+    $($cakedayDate).text(nextCakeday.format("MMMM Do YYYY"));
+  };
 
-		$($message).text("days left");
-		$($message).append("<br />");
-		$($message).append(message);
-	}
+  var displayDaysLeft = function(daysLeft) {
+    $($result).empty();
+    $($result).text(daysLeft);
+  };
 
-	var getUser = function(){
-		return $("#userName").val();
-	}
+  var displayMessage = function(daysLeft) {
+    var message = null;
+    if (daysLeft === 0) {
+      message = 'Go post something funny now, and reap the benefits';
+    } else if (daysLeft === 1) {
+      message = "That's like, tomorrow. Better go find a cat to take pictures of";
+    } else if (daysLeft < 5) {
+      message = "Soon. Very soon";
+    } else if (daysLeft < 15) {
+      message = "It's creeping closer. No long now until you have spent a whole year on reddit";
+    } else if (daysLeft > 363) {
+      message = "Oh, man.. That has got to hurt. It was, like, yesterday";
+    } else {
+      message = " ";
+    }
 
-	var createUserUrl = function(userName){
+    $($message).html("days left<br />" + message);
+  };
 
-		userUrl = "http://www.reddit.com/user/" + userName + 
-			"/about.json?jsonp=?";
-	}
+  var createUserUrl = function(userName){
+    return "http://www.reddit.com/user/" + userName + 
+      "/about.json?jsonp=?";
+  };
 
-	var noInput = function(){
-		$($result).empty();
+  var noInput = function(){
+    $($result).empty();
+    $($message).html("You forgot to type a user name");
+  }
 
-	}
+  $($form).on("submit", function(event) {
+    event.preventDefault();
+    var userName = $("#userName").val();
 
-	$($form).on("submit", function(event) {
-		event.preventDefault();
-		var userName = getUser();
-		if(userName) {
-			createUserUrl(userName);
-    		getDaysLeft();
-		} else {
-			noInput();
-		}
+    if(userName) {
+      
+      gotInput(userName);
+    } else {
+      noInput();
+    }
 
-		
-  	});
+    
+    });
 
 
 });
