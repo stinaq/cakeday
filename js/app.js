@@ -34,7 +34,8 @@ $(function(){
         displayMessage(daysLeft);
       },
       error: function(){
-        $($message).text("No. Could not find this one");
+        $($message).text("No. Could not find this one. Don't want to, either");
+        $($message).after('<img src="css/img/cat.png" />')
       }});
   };
 
