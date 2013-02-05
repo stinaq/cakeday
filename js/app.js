@@ -34,7 +34,7 @@ $(function(){
         displayMessage(daysLeft);
       },
       error: function(){
-        $($message).text("no user");
+        $($message).text("No. Could not find this one");
       }});
   };
 
@@ -48,20 +48,24 @@ $(function(){
   };
 
   var displayMessage = function(daysLeft) {
-    var message = null;
-    if (daysLeft === 0) {
-      message = 'Go post something funny now, and reap the benefits';
-    } else if (daysLeft === 1) {
-      message = "That's like, tomorrow. Better go find a cat to take pictures of";
-    } else if (daysLeft < 5) {
-      message = "Soon. Very soon";
-    } else if (daysLeft < 15) {
-      message = "It's creeping closer. No long now until you have spent a whole year on reddit";
-    } else if (daysLeft > 363) {
-      message = "Oh, man.. That has got to hurt. It was, like, yesterday";
-    } else {
-      message = " ";
-    }
+    var message = " ";
+
+    var myList = [
+      {max: 363, text: "Oh, man.. That has got to hurt. It was, like, yesterday"}, 
+      {min: 15, text: "It's creeping closer. No long now until you have spent a whole year on reddit"},
+      {min: 5, text: "Soon. Very soon"},
+      {min: 2, text: "That's like, tomorrow. Better go find a cat to take pictures of"},
+      {min: 1, text: "Go post something funny now, and reap the benefits"}
+    ];
+
+    $.each(myList, function (index, value) {
+      if('max' in value && value.max < daysLeft) {
+        message = value.text;
+      } else if ('min' in value && value.min > daysLeft) {
+        message = value.text;
+      }
+
+    });
 
     $($message).html("days left<br />" + message);
   };
@@ -81,14 +85,12 @@ $(function(){
     var userName = $("#userName").val();
 
     if(userName) {
-      
       gotInput(userName);
     } else {
       noInput();
     }
 
-    
-    });
+  });
 
 
 });
