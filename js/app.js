@@ -11,6 +11,8 @@ $(function(){
   var gotInput = function(userName) {
     var userUrl = createUserUrl(userName);
 
+    
+
     $.ajax({
       url: userUrl,
       dataType: "jsonp",
@@ -29,13 +31,15 @@ $(function(){
         var daysLeft = nextCakeday.diff(moment(), 'days');
         console.log(daysLeft);
 
+        emptyAllElements();
         displayNextCakeday(nextCakeday);
         displayDaysLeft(daysLeft);
         displayMessage(daysLeft);
       },
       error: function(){
+        emptyAllElements();
         $($message).text("No. Could not find this one. Don't want to, either");
-        $($message).after('<img src="css/img/cat.png" />')
+        $($message).after('<img src="css/img/cat.png" id="cat" />')
       }});
   };
 
@@ -44,7 +48,6 @@ $(function(){
   };
 
   var displayDaysLeft = function(daysLeft) {
-    $($result).empty();
     $($result).text(daysLeft);
   };
 
@@ -76,10 +79,17 @@ $(function(){
       "/about.json?jsonp=?";
   };
 
+  var emptyAllElements = function(){
+    $($cakedayDate).empty();
+    $($message).empty();
+    $($result).empty();
+    $('#cat').remove();
+  };
+
   var noInput = function(){
     $($result).empty();
     $($message).html("You forgot to type a user name");
-  }
+  };
 
   $($form).on("submit", function(event) {
     event.preventDefault();
