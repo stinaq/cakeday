@@ -25,6 +25,7 @@ body{
 .jumbotron {
   margin: 10px 0;
   text-align: center;
+  background-image: url('img/pattern.png');
 }
 .jumbotron h1 {
   font-size: 72px;
