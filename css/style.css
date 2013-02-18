@@ -6,7 +6,7 @@ body{
 	background-color: red;
 }
 
-#userName{
+#user-name-input{
   height: 3.5em;
   width: 390px;
 }
@@ -76,14 +76,14 @@ input[type="text"]:focus{
 }
 
 
-#cakedayDate{
+#cakeday-date{
     color: white;
     font-family: "Segoe UI Light","Helvetica Neue","Segoe UI","Segoe WP",sans-serif;
     font-weight: 100;
     font-size: 20px;
 }
 
-#cakedayForm{
+#cakeday-form{
   margin-top: 10px;
 }
 

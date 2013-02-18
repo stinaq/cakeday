@@ -4,9 +4,10 @@ $(function(){
 
   var $result = $('#result');
   var $message = $('#message');
-  var $form = $('#cakedayForm');
-  var $cakedayDate = $('#cakedayDate');
+  var $form = $('#cakeday-form');
+  var $cakedayDate = $('#cakeday-date');
   var $response = $('#response');
+  var $userNameInput = $('#user-name-input');
 
   var gotInput = function(userName) {
     var userUrl = createUserUrl(userName);
@@ -87,13 +88,13 @@ $(function(){
   };
 
   var noInput = function(){
-    $($result).empty();
+    emptyAllElements();
     $($message).html("You forgot to type a user name");
   };
 
   $($form).on("submit", function(event) {
     event.preventDefault();
-    var userName = $("#userName").val();
+    var userName = $userNameInput.val();
 
     if(userName) {
       gotInput(userName);
