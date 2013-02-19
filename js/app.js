@@ -85,11 +85,13 @@ $(function(){
     $($message).empty();
     $($result).empty();
     $('#cat').remove();
+    $($message).removeClass('colored-background');
   };
 
   var noInput = function(){
     emptyAllElements();
     $($message).html("You forgot to type a user name");
+    $($message).addClass('colored-background');
   };
 
   $($form).on("submit", function(event) {

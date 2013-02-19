@@ -75,6 +75,10 @@ input[type="text"]:focus{
   font-size: 20px;
 }
 
+.colored-background{
+  background: #48a9a1;
+}
+
 
 #cakeday-date{
     color: white;
