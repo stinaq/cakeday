@@ -9,10 +9,15 @@ $(function(){
   var $response = $('#response');
   var $userNameInput = $('#user-name-input');
 
+
+  var noInput = function(){
+    emptyAllElements();
+    $($message).html("You forgot to type a user name");
+    $($message).addClass('colored-background');
+  };
+
   var gotInput = function(userName) {
     var userUrl = createUserUrl(userName);
-
-    
 
     $.ajax({
       url: userUrl,
@@ -25,10 +30,7 @@ $(function(){
 
         var daysLeft = nextCakeday.diff(moment(), 'days');
 
-        emptyAllElements();
-        displayNextCakeday(nextCakeday);
-        displayDaysLeft(daysLeft);
-        displayMessage(daysLeft);
+        displayResults(nextCakeday, daysLeft);
       },
       error: function(){
         emptyAllElements();
@@ -45,6 +47,13 @@ $(function(){
       nextCakeday = nextCakeday.add('years', 1)
     }
     return nextCakeday;
+  }
+
+  var displayResults = function(nextCakeday, daysLeft){
+    emptyAllElements();
+    displayNextCakeday(nextCakeday);
+    displayDaysLeft(daysLeft);
+    displayMessage(daysLeft);
   }
 
   var displayNextCakeday = function(nextCakeday) {
@@ -78,11 +87,6 @@ $(function(){
     $($message).html("days left<br />" + message);
   };
 
-  var createUserUrl = function(userName){
-    return "http://www.reddit.com/user/" + userName + 
-      "/about.json?jsonp=?";
-  };
-
   var emptyAllElements = function(){
     $($cakedayDate).empty();
     $($message).empty();
@@ -91,10 +95,9 @@ $(function(){
     $($message).removeClass('colored-background');
   };
 
-  var noInput = function(){
-    emptyAllElements();
-    $($message).html("You forgot to type a user name");
-    $($message).addClass('colored-background');
+  var createUserUrl = function(userName){
+    return "http://www.reddit.com/user/" + userName + 
+      "/about.json?jsonp=?";
   };
 
   $(document).on("submit", $form, function(event) {
@@ -106,8 +109,5 @@ $(function(){
     } else {
       noInput();
     }
-
   });
-
-
 });
