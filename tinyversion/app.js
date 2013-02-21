@@ -1,6 +1,6 @@
 $(function(){
 
-	$('#cakedayForm').on("submit", function(event) {
+	$(document).on("submit", '#cakedayForm', function(event) {
 		event.preventDefault();
 		var user = $("#userName").val();
 		displayDaysLeft(user);
