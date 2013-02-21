@@ -94,7 +94,7 @@ $(function(){
     $($message).addClass('colored-background');
   };
 
-  $($form).on("submit", function(event) {
+  $(document).on("submit", '#cakedayForm', function(event) {
     event.preventDefault();
     var userName = $userNameInput.val();
 
