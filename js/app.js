@@ -21,16 +21,9 @@ $(function(){
       success: function(data){
 
         var createdDate = moment.unix(data.data.created);
-
-        var currentYear = moment().format('YYYY');
-        var nextCakeday = createdDate.year(currentYear);
-
-        if(nextCakeday < moment()){
-          nextCakeday = nextCakeday.add('years', 1)
-        }
+        var nextCakeday = calculateNextCakeday(createdDate);
 
         var daysLeft = nextCakeday.diff(moment(), 'days');
-        console.log(daysLeft);
 
         emptyAllElements();
         displayNextCakeday(nextCakeday);
@@ -43,6 +36,16 @@ $(function(){
         $($message).after('<img src="css/img/cat.png" id="cat" />')
       }});
   };
+
+  var calculateNextCakeday = function(createdDate){
+    var currentYear = moment().format('YYYY');
+    var nextCakeday = createdDate.year(currentYear);
+
+    if(nextCakeday < moment()){
+      nextCakeday = nextCakeday.add('years', 1)
+    }
+    return nextCakeday;
+  }
 
   var displayNextCakeday = function(nextCakeday) {
     $($cakedayDate).text(nextCakeday.format("MMMM Do YYYY"));
@@ -94,7 +97,7 @@ $(function(){
     $($message).addClass('colored-background');
   };
 
-  $(document).on("submit", '#cakedayForm', function(event) {
+  $($form).on("submit", function(event) {
     event.preventDefault();
     var userName = $userNameInput.val();
 
