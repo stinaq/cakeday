@@ -71,7 +71,7 @@ $(function(){
       {max: 363, text: "Oh, man.. That has got to hurt. It was, like, yesterday"}, 
       {min: 15, text: "It's creeping closer. No long now until you have spent a whole year on reddit"},
       {min: 5, text: "Soon. Very soon"},
-      {min: 2, text: "That's like, tomorrow. Better go find a cat to take pictures of"},
+      {min: 2, text: "That's like, tomorrow. Better go find a cat of which to take pictures"},
       {min: 1, text: "Go post something funny now, and reap the benefits"}
     ];
 
